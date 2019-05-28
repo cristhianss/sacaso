@@ -8,6 +8,18 @@ $contas = new Contas;
 session_start();
 
 if (isset($_SESSION['login'])) {
+    if ($_POST['valor'] == '') {
+        header("Location: ../index.php?valor_obrigatorio");
+        exit;
+    }
+
+    if ($_POST['tipo'] === 'transferir') {
+        if ($_POST['conta_para_transferir'] === 'Selecione para transferir') {
+            header("Location: ../index.php?transaction=conta_obrigatoria");
+            exit;
+        }
+    }
+
     $movimentacao = $contas->setTransaction($_POST);
 
     if ($movimentacao) {
@@ -19,30 +31,30 @@ if (isset($_SESSION['login'])) {
         exit;
     }
 
+    if ($movimentacao === 'saldomenor') {
+        header("Location: ../index.php?transaction=saldo_menor");
+        exit;
+    }
+
     if ($movimentacao === 'saldonegativo') {
         header("Location: ../index.php?valor_a_transferir_menor_que_zero");
         exit;
     }
 
     if ($movimentacao === 'maiorque999') {
-        header("Location: ../index.php?maior_que_999");
-        exit;
+        echo '<script>location.href="../index.php?transaction=limite";</script>';
+        exit();
     }
 
     if ($movimentacao === 'salario') {
-        header("Location: ../index.php?nao_pode_tranferir_para_conta_salario");
+        header("Location: ../index.php?transaction=salario");
         exit;
     }
 
     if ($movimentacao) {
-        header("Location: ../index.php");
-        exit();
+        echo '<script>location.href="../index.php?transaction=success";</script>'; 
     } else {
-
-        header("Location: ../index.php?transaction_failed");
-        $message = "wrong answer";
-        echo "<script type='text/javascript'>alert('$message');</script>";
-        exit();
+        echo '<script>location.href="../index.php?transaction=failed";</script>'; 
     }
 
 }

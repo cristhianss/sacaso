@@ -1,4 +1,5 @@
 <?php
+setlocale(LC_MONETARY, 'pt_BR');
 session_start();
 if (isset($_SESSION['login'])) {
     include_once 'model/Conexao.php';
@@ -50,10 +51,10 @@ if (isset($_SESSION['login'])) {
                         <?php foreach ($contas->listAccounts() as $account): ?>
                             <tr class="tr">
                                 <td><?php echo $account['nome_conta']?></td>
-                                <td><?php echo $account['saldo']?></td>
+                                <td><?php echo 'R$ '. number_format($account['saldo'],2,",",".");?></td>
                                 <td>
                                     <form method="POST" id="form" action="view/movimentacao.php">
-                                        <input type="text" class="form-control" id="currency<?= $account['id_conta']; ?>" name="valor" placeholder="Digite um valor">
+                                        <input type="text" class="form-control" id="currency<?= $account['id_conta']; ?>" name="valor" placeholder="Digite um valor" required>
                                         <input type="hidden" name="conta" value="<?php echo $account['id_conta']; ?>">
                                         <br>
                                         <button type="submit" id="submitBtn" name="tipo" value="deposito" class="btn btn-warning btn-xs">Depósito</button>
@@ -81,6 +82,7 @@ if (isset($_SESSION['login'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.maskMoney.min.js" type="text/javascript"></script>
     <script src="assets/js/jquery.toast.min.js" type="text/javascript"></script>
+    <script src="assets/js/jquery.url.js" type="text/javascript"></script>
     <script src="assets/js/script.js" type="text/javascript"></script>
     </body>
     </html>

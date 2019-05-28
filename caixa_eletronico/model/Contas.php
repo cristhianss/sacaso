@@ -72,7 +72,7 @@
             $pdo = parent::get_instance();
             $sql = 'INSERT INTO historico (id_conta, tipo, valor, data_operacao) VALUES (:id_conta, :tipo, :valor, NOW())';
             $sql = $pdo->prepare($sql);
-            $sql->bindValue(":id_conta", $_SESSION['login']);
+            $sql->bindValue(":id_conta", $postData['conta']);
             $sql->bindValue(":tipo", $postData['tipo']);
             $sql->bindValue(":valor", $postData['valor']);
             try {

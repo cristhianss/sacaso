@@ -10,7 +10,6 @@ include_once '../model/Contas.php';
 
 $contas = new Contas();
 
-$id = $_POST['id_conta'];
     ?>
 
     <!-- Fim - PHP -->
@@ -54,7 +53,7 @@ $id = $_POST['id_conta'];
                         </tr>
                         </thead>
                         <tbody style="text-align: center;">
-                            <?php foreach($contas->listHistoric($id) as $historic) :?>
+                            <?php foreach($contas->listHistoric($_GET['conta']) as $historic) :?>
                         <tr>
                             <td>
                                 <?php echo date("d/m/Y H:m:s", strtotime($historic['data_operacao']));?>

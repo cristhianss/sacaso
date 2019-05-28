@@ -117,3 +117,8 @@ form div {
 label.error {
   display: inline;
 }
+
+#errmsg
+{
+    color: red;
+}

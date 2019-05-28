@@ -77,9 +77,9 @@ if (isset($_SESSION['login'])) {
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.maskMoney.min.js" type="text/javascript"></script>
     <script src="assets/js/jquery.toast.min.js" type="text/javascript"></script>
     <script src="assets/js/jquery.url.js" type="text/javascript"></script>
@@ -88,5 +88,5 @@ if (isset($_SESSION['login'])) {
     </html>
     <?php
 } else {
-        header('Location: login.php?access_denied');
-    }?>
+    header('Location: login.php?access_denied');
+}?>

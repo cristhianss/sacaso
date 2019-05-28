@@ -10,6 +10,10 @@ session_start();
 if (isset($_SESSION['login'])) {
     $movimentacao = $contas->setTransaction($_POST);
 
+    if ($movimentacao) {
+        $contas->setHistoric($_POST);
+    }
+
     if ($movimentacao === 'nosaldo') {
         header("Location: ../index.php?sem_saldo");
         exit;
@@ -31,9 +35,14 @@ if (isset($_SESSION['login'])) {
     }
 
     if ($movimentacao) {
-        header("Location: ../index.php?transaction_success");
+        header("Location: ../index.php");
+        exit();
     } else {
+
         header("Location: ../index.php?transaction_failed");
+        $message = "wrong answer";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        exit();
     }
 
 }

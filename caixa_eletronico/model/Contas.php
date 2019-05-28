@@ -5,7 +5,6 @@ class Contas extends Conexao
     public function setTransaction($postData)
     {
         $pdo = parent::get_instance();
-        $transacao = $this->setHistoric($postData);
         if ($postData['tipo'] === 'deposito') {
             if (!$this->validaDeposito($postData)) {
                 return false;
@@ -69,7 +68,7 @@ class Contas extends Conexao
         $pdo = parent::get_instance();
         $sql = 'INSERT INTO historico (id_conta, tipo, valor, data_operacao) VALUES (:id_conta, :tipo, :valor, NOW())';
         $sql = $pdo->prepare($sql);
-        $sql->bindValue(":id_usuario", $_SESSION['login']);
+        $sql->bindValue(":id_conta", $_SESSION['login']);
         $sql->bindValue(":tipo", $postData['tipo']);
         $sql->bindValue(":valor", $postData['valor']);
         try {
@@ -195,12 +194,12 @@ class Contas extends Conexao
         }
     }
 
-    public function listHistoric($id)
+    public function listHistoric($id_conta)
     {
         $pdo = parent::get_instance();
         $sql = "SELECT * FROM historico WHERE id_conta = :id_conta";
         $sql = $pdo->prepare($sql);
-        $sql->bindValue(":id_conta",$id);
+        $sql->bindValue(":id_conta",$id_conta);
         try {
             $sql->execute();
             if ($sql->rowCount() > 0) {
